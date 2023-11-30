@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Bugle | Dark Mode</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body  class="bg-gradient-to-r from-slate-900 to-slate-700 text-white py-12 px-6 w-screen h-screen"> 
+  <header class="bg-slate-950/20 shadow-xl shadow-indigo-500/10 p-5 rounded-lg items-center">
+    <div class="w-full h-auto mx-auto">
+        <div class="flex items-center justify-between">
+        <a href="#" class="font-bold text-xl">The Daily Bugle</a>
+        <div class="flex items-center">
+            <a href="./login.html" class="px-3 py-2 hover:bg-gray-700">Login</a>
+            <a href="./signup.html" class="px-3 py-2 hover:bg-gray-700">Sign Up</a>
+        </div>
+        </div>
+    </div>
+  </header>
+
+  <main class="py-2 ">
+    <article id="top-article" class="bg-gray-700 rounded-b-md grid grid-cols-[40%_60%] mb-5">
+    </article>
+    <div class="grid grid-cols-[60%_40%] gap-2">
+        <div id="articles">
+        </div>
+        <div id="advertisement" class="bg-gray-900/50 p-10 rounded-lg shadow-xl w-full max-w-md mx-auto h-fit my-3">
+        </div>
+    </div>
+  </main>
+</body>
+
+<script>
+  fetch('http://localhost:5050/api/articles')
+  .then(response => response.json())
+  .then(articles => {
+    const articlesContainer = document.getElementById('articles');
+    articles.forEach(article => {
+      const articleElement = document.createElement('div');
+      articleElement.classList.add('bg-gray-700', 'p-6', 'rounded-md', 'my-3');
+      articleElement.innerHTML = `
+        <div class="p-2">
+          <h2 class="text-xl font-bold">${article.title}</h2>
+          <p class="py-5 font-medium text-gray-400">${article.teaser}</p>
+          <a href="#" class="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-700">Read More</a>
+        </div>
+      `;
+      articlesContainer.appendChild(articleElement);
+    });
+  });
+</script>
+
+<script>
+  fetch('http://localhost:5050/api/top-article')
+  .then(response => response.json())
+  .then(article => {
+    const articlesContainer = document.getElementById('top-article');
+    const articleElement = document.createElement('div');
+    articleElement.classList.add('p-4');
+    articleElement.innerHTML = `
+        <h2 class="text-xl font-bold">${article.title}</h2>
+        <p class="py-5 font-medium text-gray-400">${article.teaser}</p>
+        <a href="#" class="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-700">Read More</a>
+      </div>
+    `;
+    const articleImage = document.createElement('img');
+    articleImage.src = article.img_src
+    articleImage.classList.add('rounded-b-md', 'h-auto' , 'w-auto')
+    articlesContainer.appendChild(articleElement);
+    articlesContainer.appendChild(articleImage);
+
+  });
+</script>
+
+<script>
+  fetch('http://localhost:5050/api/advertisement')
+  .then(response => response.json())
+  .then(ad => {
+    console.log(ad);
+    const adContainer = document.getElementById('advertisement');
+    adContainer.innerHTML =`
+            <h3 class="text-xl font-semibold mb-5 text-center">Advertisement</h3>
+            <img src=${ad.ad[0].img_src} alt="Advertisement" class="w-full h-64 object-cover rounded mb-5">
+            <p class="mb-5">${ad.ad[0].advertisement}</p>
+            <a href=${ad.ad[0].link} class="w-full p-2 bg-blue-500 hover:bg-blue-700 rounded text-white">Shop Now</a>
+    `;
+  });
+</script>
+
+</html>
+

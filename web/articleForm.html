@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Article | Daily Bugle</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body  class="bg-gradient-to-r from-slate-900 to-slate-700 text-white py-12 px-6 w-screen h-screen"> 
+    <header>
+      <div class="w-full h-auto">
+          <div class="flex mx-auto w-full items-start">
+            <a href="#" class="font-bold text-6xl mx-auto"><span class="text-[20px] font-bold mx-auto">We're excited for your submission!</span><br>The Daily Bugle.</a>
+          </div>
+      </div>
+    </header>
+    <main class="items-center justify-between h-screen w-screen items-center">
+        <div class="bg-violet-800/10 p-[2rem] rounded-lg shadow-xl w-[65%] mx-auto m-[2rem]">
+            <h3 class="text-xl font-semibold mb-5 text-center">Submit Your Article</h3>
+            <form>
+              <div class="mb-5">
+                <label for="title" class="block mb-2">Title</label>
+                <input type="text" id="title" class="w-full p-2 bg-gray-700 text-white rounded">
+              </div>
+              <div class="mb-5">
+                <label for="teaser" class="block mb-2">Teaser</label>
+                <input type="text" id="teaser" class="w-full p-2 bg-gray-700 text-white rounded">
+              </div>
+              <div class="mb-5">
+                <label for="body" class="block mb-2">Body</label>
+                <textarea id="body" class="w-full p-2 bg-gray-700 text-white rounded h-64"></textarea>
+              </div>
+              <div class="mb-5">
+                <label for="categories" class="block mb-2">Categories</label>
+                <input type="text" id="categories" class="w-full p-2 bg-gray-700 text-white rounded" placeholder="Separate categories with commas">
+              </div>
+              <div class="w-full inline-block justify-items-end ">
+                <button type="submit" class="w-fit p-2 bg-blue-500 mx-auto hover:bg-blue-700 rounded text-white">Submit</button>
+              </div>
+            </form>
+        </div>
+    </main>
+  </body>
+</html>
