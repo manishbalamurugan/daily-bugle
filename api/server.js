@@ -40,6 +40,20 @@ app.get('/api/articles', async (req, res) => {
   };
 })
 
+app.get('/api/article/:articleid', async (req, res) => {
+  try {
+    const article = await db.collection('articles').findOne({ _id: new mongodb.ObjectId(req.params.articleid) });
+    if (article != null) {
+      res.json(article);
+    } else {
+      res.status(404).json({ error: 'Article not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
 
 app.get('/api/top-article', async (req, res) => {
   try {
@@ -58,5 +72,22 @@ app.get('/api/advertisement', async (req, res) => {
     error => console.error(error)
   };
 })
+
+
+app.post('/api/article/comment', async (req, res) => {
+    try {
+      const userName = req.body.userName;
+      const comment = req.body.comment; // assuming the comment is sent in the request body
+      const article = await db.collection('articles').updateOne(
+        { _id: new mongodb.ObjectId(req.body.articleId) },
+        { $push: {comments: {userName: userName, comment: comment }}}
+      );
+      res.status(200).send('Comment added successfully');
+    } catch(error){
+      console.error(error);
+      res.status(500).send('An error occurred');
+    }
+  });
+  
 
 
